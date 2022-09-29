@@ -1,0 +1,13 @@
+void main {
+
+newVar int testeNumComVirgulaEPotencia;
+newVar int trinta;
+newVar int resultadoSoma;
+
+testeNumComVirgulaEPotencia = 10.10E-10;
+trinta = (30);
+resultadoSoma = (testeNumComVirgulaEPotencia + trinta)
+
+
+System.output(resultadoSoma);
+}

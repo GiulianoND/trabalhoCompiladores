@@ -1,0 +1,83 @@
+PARSER_BEGIN(Karloff)
+import java.io.*;
+public class Karloff {
+
+  public static void main(String args[]) throws ParseException,IOException {
+    
+ Karloff analisador = new Karloff(new FileInputStream(args[0]));
+ analisador.Karloff();
+  }
+
+}
+
+PARSER_END(Karloff)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+}
+
+TOKEN :
+{
+  <MAIN: "main">
+| <ACHAVES: "{">
+| <FCHAVES: "}">
+| <SOMA: "+">
+| <SUBTRACAO: "-">
+| <MULTIPLICACAO: "*">
+| <BARRA: "/">
+| <AND: "&">
+| <OR: "|">
+| <MENORQUE: "<">
+| <MAIORQUE: ">">
+| <IGUAL: "==">
+
+| <FUNC: "func">
+| <APARENTESES: "(">
+| <FPARENTESES: ")">
+| <VIRGULA: ",">
+
+}
+
+TOKEN :
+{
+  <NUM : ["0"-"9"] ( ("."["0"-"9"] ) ? ) + ( "E" ( "+" | "-") ? ( ["0"-"9"] ) + ) ?>
+ | <ID: ["a"-"z","A"-"Z"](["a"-"z","A"-"Z"]|["0"-"9"])*("_"(["a"-"z","A"-"Z"]|["0"-"9"])+)+>
+}
+
+
+
+void Karloff () :
+{Token t;}
+{
+
+(
+  <MAIN> { System.out.println("Palavra reservada: main");}
+| <ACHAVES> { System.out.println("Abre chaves: {");}
+| <FCHAVES> { System.out.println("Fecha chaves: }");}
+
+| <SOMA> { System.out.println("Soma: +");}
+| <SUBTRACAO> { System.out.println("SUBTRACAO: -");}
+| <MULTIPLICACAO> { System.out.println("Multiplicação: *");}
+| <BARRA> { System.out.println("Barra: /");}
+| <AND> { System.out.println("And: &");}
+| <OR> { System.out.println("Or: |");}
+| <MENORQUE> { System.out.println("Menor que: <");}
+| <MAIORQUE> { System.out.println("Maior que: >");}
+| <IGUAL> { System.out.println("Igual: ==");}
+
+| <FUNC> { System.out.println("Função: func");}
+| <APARENTESES> { System.out.println("Abre parenteses: (");}
+| <FPARENTESES> { System.out.println("Fecha parenteses: )");}
+| <VIRGULA> { System.out.println("Vírgula: ,");}
+
+| t=<NUM> { System.out.println("Número: "+ t.image);}
+| t=<ID> { System.out.println("Identificador: "+ t.image);}
+)*
+<EOF> 
+
+
+}
